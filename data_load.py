@@ -20,7 +20,7 @@ class HParams:
 hp = HParams()
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-class NerDataser(data.Dataset):
+class NerDataset(data.Dataset):
     def __init__(self, path):
         instances = open(path).read().strip().split('\n\n')
         sents = []
