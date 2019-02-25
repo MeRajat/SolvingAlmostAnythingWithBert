@@ -6,6 +6,9 @@ from new_model import Net
 from data_load import NerDataset, pad, hp, device
 import os
 import numpy as np
+from pytorch_pretrained_bert.modeling import BertConfig
+
+
 
 def train(model, iterator, optimizer, criterion):
     model.train()
