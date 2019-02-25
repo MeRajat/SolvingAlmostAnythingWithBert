@@ -25,7 +25,7 @@ class NerDataset(data.Dataset):
         instances = open(path).read().strip().split('\n\n')
         sents = []
         tags_li = []
-        for instance in instances:
+        for entry in instances:
             words = [line.split()[0] for line in entry.splitlines()]
             tags = ([line.split()[-1] for line in entry.splitlines()])
             sents.append(["[CLS]"] + words + ["[SEP]"])
