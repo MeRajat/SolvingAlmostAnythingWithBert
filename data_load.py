@@ -14,7 +14,7 @@ class HParams:
     lr = 0.0001
     n_epochs = 30 
 
-    tokenizer = BertTokenizer(vocab_file=param.VOCAB_FILE, do_lower_case=False)
+    tokenizer = BertTokenizer(vocab_file='/home/ubuntu/biobert/weights/pubmed_pmc_470k/vocab.txt', do_lower_case=False)
 
 
 hp = HParams()

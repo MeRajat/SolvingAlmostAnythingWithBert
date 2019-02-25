@@ -4,9 +4,9 @@ from data_load import hp, device
 from pytorch_pretrained_bert import BertModel
 
 class Net(nn.Module):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__()
-        self.bert = BertModel.from_pretrained('bert-base-cased')
+        self.bert = BertModel(config)
         self.bert.to(device)
         self.bert.eval()
         self.bert = nn.DataParallel(self.bert)

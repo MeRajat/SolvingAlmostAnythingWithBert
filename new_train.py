@@ -109,11 +109,22 @@ def eval(model, iterator, f):
     return precision, recall, f1
 
 if __name__=="__main__":
-    model = Net()
+    
+    
     model.to(device)
 
-    train_dataset = NerDataset("data/train.txt")
-    eval_dataset = NerDataset("data/valid.txt")
+    # Define model 
+    state_dict = torch.load('/home/ubuntu/biobert/weights/pubmed_pmc_470k/torch_weight', map_location='cpu')
+    config = BertConfig(vocab_size_or_config_json_file='/home/ubuntu/biobert/weights/pubmed_pmc_470k/bert_config.json')
+    model = Net(config)
+    model.cuda()
+    model.train()
+    # update with already pretrained weight
+    model.bert.state_dict = state_dict
+
+
+    train_dataset = NerDataset("data/train.tsv")
+    eval_dataset = NerDataset("data/test.tsv")
 
     train_iter = data.DataLoader(dataset=train_dataset,
                                  batch_size=hp.batch_size,
