@@ -111,7 +111,6 @@ def eval(model, iterator, f):
 if __name__=="__main__":
     
     
-    model.to(device)
 
     # Define model 
     state_dict = torch.load('/home/ubuntu/biobert/weights/pubmed_pmc_470k/torch_weight', map_location='cpu')
