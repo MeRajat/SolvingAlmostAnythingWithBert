@@ -36,7 +36,7 @@ class NerDataset(data.Dataset):
         return len(self.sents)
 
 
-    def __getitem(self, idx):
+    def __getitem__(self, idx):
         words, tags = self.sents[idx], self.tags_li[idx] # words, tags: string list
 
         # We give credits only to the first piece.
