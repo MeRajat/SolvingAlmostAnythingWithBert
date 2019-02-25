@@ -1,5 +1,5 @@
 import numpy as np 
-import torch.utils import data 
+from torch.utils import data 
 
 import torch 
 from pytorch_pretrained_bert import BertTokenizer
