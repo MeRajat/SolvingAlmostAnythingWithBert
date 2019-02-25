@@ -113,7 +113,7 @@ if __name__=="__main__":
     
 
     # Define model 
-    state_dict = torch.load('/home/ubuntu/biobert/weights/pubmed_pmc_470k/torch_weight', map_location='cpu')
+    state_dict = torch.load('/home/ubuntu/biobert/code_ner/code_ner/weights/pytorch_weight', map_location='cpu')
     config = BertConfig(vocab_size_or_config_json_file='/home/ubuntu/biobert/weights/pubmed_pmc_470k/bert_config.json')
     model = Net(config)
     model.cuda()
