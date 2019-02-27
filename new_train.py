@@ -9,6 +9,15 @@ import numpy as np
 from pytorch_pretrained_bert.modeling import BertConfig
 
 
+# prepare biobert dict 
+tmp_d = torch.load('/data/home/rajat/work/biobert/code_ner/weights/pytorch_weight', map_location='cpu')
+state_dict = OrderedDict()
+for i in list(tmp_d.keys())[:199]:
+    x = i
+    if i.find('bert') > -1:
+        x = '.'.join(i.split('.')[1:])
+    state_dict[x] = tmp_d[i]
+    
 
 def train(model, iterator, optimizer, criterion):
     model.train()
@@ -116,13 +125,11 @@ if __name__=="__main__":
     
 
     # Define model 
-    state_dict = torch.load('/home/ubuntu/biobert/code_ner/code_ner/weights/pytorch_weight', map_location='cpu')
     config = BertConfig(vocab_size_or_config_json_file='/home/ubuntu/biobert/weights/pubmed_pmc_470k/bert_config.json')
-    model = Net(config)
+    model = Net(config, state_dict)
     model.cuda()
     model.train()
     # update with already pretrained weight
-    model.bert.state_dict = state_dict
 
 
     train_dataset = NerDataset("data/train.tsv")

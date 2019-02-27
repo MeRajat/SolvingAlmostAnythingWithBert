@@ -6,7 +6,7 @@ from pytorch_pretrained_bert import BertTokenizer
 
 
 class HParams:
-    VOCAB = ('<PAD>', 'B-Chemical' 'O', 'B-Disease' , 'I-Disease', 'I-Chemical')
+    VOCAB = ('<PAD>', 'B-Chemical', 'O', 'B-Disease' , 'I-Disease', 'I-Chemical')
     tag2idx = {v:k for k,v in enumerate(VOCAB)}
     idx2tag = {k:v for k,v in enumerate(VOCAB)}
 
