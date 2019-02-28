@@ -51,7 +51,7 @@ def process_query(query, hp, model):
 
 
 app = Flask(__name__)
-@app.route('api/ner/bc5cdr', methods = ['POST'])
+@app.route('/api/ner/bc5cdr', methods = ['POST'])
 def get_bc5cdr():
     if not request.json or not 'query' in request.json:
         abort(400)
@@ -62,7 +62,7 @@ def get_bc5cdr():
 
 
 
-@app.route('api/ner/bionlp13cg', methods = ['POST'])
+@app.route('/api/ner/bionlp13cg', methods = ['POST'])
 def get_bc5cdr():
     if not request.json or not 'query' in request.json:
         abort(400)
