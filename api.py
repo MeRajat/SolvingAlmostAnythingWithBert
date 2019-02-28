@@ -5,7 +5,8 @@ from pytorch_pretrained_bert import BertModel
 import parameters
 from flask import Flask
 from flask import request, abort, jsonify
-
+import torch 
+import numpy as np 
 
 config = BertConfig(vocab_size_or_config_json_file=parameters.BERT_CONFIG_FILE)
 
