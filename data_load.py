@@ -28,9 +28,8 @@ class HParams:
         self.n_epochs = 30 
 
         self.tokenizer = BertTokenizer(vocab_file=parameters.VOCAB_FILE, do_lower_case=False)
+        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 class NerDataset(data.Dataset):
     def __init__(self, path, vocab_type):
