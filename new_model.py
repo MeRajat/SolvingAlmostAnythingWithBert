@@ -4,13 +4,13 @@ from data_load import hp, device
 from pytorch_pretrained_bert import BertModel
 
 class Net(nn.Module):
-    def __init__(self, config, state_dict):
+    def __init__(self, config, state_dict, vocab_len):
         super().__init__()
         self.bert = BertModel(config)
         self.bert.load_state_dict(state_dict)
         self.bert.eval()
         self.rnn = nn.LSTM(bidirectional=True, num_layers=2, input_size=768, hidden_size=768//2, batch_first=True)
-        self.fc = nn.Linear(768, len(hp.VOCAB))
+        self.fc = nn.Linear(768, vocab_len)
         self.fc = nn.DataParallel(self.fc)
 
     def forward(self, x, y):
