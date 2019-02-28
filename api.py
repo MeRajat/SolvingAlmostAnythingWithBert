@@ -63,7 +63,7 @@ def get_bc5cdr():
 
 
 @app.route('/api/ner/bionlp13cg', methods = ['POST'])
-def get_bc5cdr():
+def get_bionlp13cg():
     if not request.json or not 'query' in request.json:
         abort(400)
 
