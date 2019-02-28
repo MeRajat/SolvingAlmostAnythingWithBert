@@ -18,8 +18,36 @@ bc5_model = build_model(config, parameters.BC5CDR_WEIGHT, HParams('bc5cdr'))
 bionlp13cg_model = build_model(config, parameters.BIONLP13CG_WEIGHT, HParams('bionlp3g'))
 
 
+# Process Query 
+def process_query(query, hp, model):
+    split_s = ["[CLS]"] + s.split()+["[SEP]"]
+    x = [] # list of ids
+    is_heads = [] # list. 1: the token is the first piece of a word
+
+    for w in split_s:
+        tokens = hp.tokenizer.tokenize(w) if w not in ("[CLS]", "[SEP]") else [w]
+        xx = hp.tokenizer.convert_tokens_to_ids(tokens)
+        is_head = [1] + [0]*(len(tokens) - 1)
+        x.extend(xx)
+        is_heads.extend(is_head)
+
+    x = torch.LongTensor(x).unsqueeze(dim=0)
+
+    # Process query 
+    model.eval()
+    _, _, y_pred = model(x, torch.Tensor([1,2,3]))  # just a dummy y value 
+    preds = y_pred[0].cpu().numpy()[np.array(is_heads) == 1]  # Get prediction where head is 1 
+
+    # convert to real tags and remove <SEP> and <CLS>  tokens labels 
+    preds = [hp.idx2tag[i] for i in preds][1:-1]
+    final_output = []
+    for word, label in zip(s.split(), preds):
+        final_output.append([word, label])
+    return final_output
 
 
+def process_output(x, y_pred, is_heads, hp):
+    
 
 
 
