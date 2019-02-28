@@ -20,8 +20,8 @@ class HParams:
                         'I-Tissue', 'O')
         }
         self.VOCAB = self.VOCAB_DICT[vocab_type]
-        self.tag2idx = {v:k for k,v in enumerate(VOCAB)}
-        self.idx2tag = {k:v for k,v in enumerate(VOCAB)}
+        self.tag2idx = {v:k for k,v in enumerate(self.VOCAB)}
+        self.idx2tag = {k:v for k,v in enumerate(self.VOCAB)}
 
         self.batch_size = 128 
         self.lr = 0.0001
