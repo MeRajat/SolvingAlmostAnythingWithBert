@@ -6,7 +6,7 @@ from pytorch_pretrained_bert import BertTokenizer
 
 
 class HParams:
-    def __init__(self, vocab_type)
+    def __init__(self, vocab_type):
         self.VOCAB_DICT = {
             'bc5cdr': ('<PAD>', 'B-Chemical', 'O', 'B-Disease' , 'I-Disease', 'I-Chemical'),
             'bionlp3g' : ('<PAD>', 'B-Amino_acid', 'B-Anatomical_system', 'B-Cancer', 'B-Cell', 
