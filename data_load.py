@@ -19,7 +19,7 @@ class HParams:
                         'I-Organism_subdivision', 'I-Organism_substance', 'I-Pathological_formation', 'I-Simple_chemical', 
                         'I-Tissue', 'O')
         }
-        VOCAB = self.VOCAB_DICT[vocab_type]
+        self.VOCAB = self.VOCAB_DICT[vocab_type]
         self.tag2idx = {v:k for k,v in enumerate(VOCAB)}
         self.idx2tag = {k:v for k,v in enumerate(VOCAB)}
 
