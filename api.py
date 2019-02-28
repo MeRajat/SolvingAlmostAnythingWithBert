@@ -10,7 +10,7 @@ from flask import request, abort, jsonify
 config = BertConfig(vocab_size_or_config_json_file=parameters.BERT_CONFIG_FILE)
 
 def build_model(config, state_dict, hp):
-    model = Net(config, len(hp.VOCAB), bert_state_dict=None)
+    model = Net(config, vocab_len = len(hp.VOCAB), bert_state_dict=None)
     _ = model.load_state_dict(torch.load(state_dict))
     _ = model.to(hp.device)
     return model 
