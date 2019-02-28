@@ -1,10 +1,9 @@
 import torch
 import torch.nn as nn
-from data_load import device
 from pytorch_pretrained_bert import BertModel
 
 class Net(nn.Module):
-    def __init__(self, config, bert_state_dict, vocab_len):
+    def __init__(self, config, bert_state_dict, vocab_len, device = 'cpu'):
         super().__init__()
         self.bert = BertModel(config)
         if bert_state_dict is not None:
