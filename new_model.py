@@ -11,7 +11,6 @@ class Net(nn.Module):
         self.bert.eval()
         self.rnn = nn.LSTM(bidirectional=True, num_layers=2, input_size=768, hidden_size=768//2, batch_first=True)
         self.fc = nn.Linear(768, vocab_len)
-        self.fc = nn.DataParallel(self.fc)
         self.device = device
 
     def forward(self, x, y):
