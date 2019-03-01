@@ -53,23 +53,21 @@ def process_query(query, hp, model):
 app = Flask(__name__)
 @app.route('/api/ner/bc5cdr', methods = ['POST'])
 def get_bc5cdr():
-    if not request.json or not 'query' in request.json:
-        abort(400)
-
+    print(request.headers, request.is_json)
+    query = request.values['query']
     hp = HParams('bc5cdr')
-    out = process_query(query=request.json['query'], hp=hp, model=bc5_model)
+    out = process_query(query=query, hp=hp, model=bc5_model)
     return jsonify({'tagging': out})
 
 
 
 @app.route('/api/ner/bionlp13cg', methods = ['POST'])
 def get_bionlp13cg():
-    if not request.json or not 'query' in request.json:
-        abort(400)
-
+    print(request.headers, request.is_json)
+    query = request.values['query']
     hp = HParams('bionlp3g')
-    out = process_query(query=request.json['query'], hp=hp, model=bionlp13cg_model)
-    return jsonify({'tagging': out})
+    out = process_query(query=, hp=hp, model=bionlp13cg_model)
+    return jsonify({'tags': out})
 
 
 if __name__ == '__main__':
