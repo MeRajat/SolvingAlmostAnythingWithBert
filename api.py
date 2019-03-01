@@ -13,7 +13,7 @@ config = BertConfig(vocab_size_or_config_json_file=parameters.BERT_CONFIG_FILE)
 def build_model(config, state_dict, hp):
     model = Net(config, vocab_len = len(hp.VOCAB), bert_state_dict=None)
     _ = model.load_state_dict(torch.load(state_dict))
-    _ = model.to(hp.device)
+    _ = model.to('cpu')  # inference 
     return model 
 
 
@@ -24,6 +24,7 @@ bionlp13cg_model = build_model(config, parameters.BIONLP13CG_WEIGHT, HParams('bi
 
 # Process Query 
 def process_query(query, hp, model):
+    s = query
     split_s = ["[CLS]"] + s.split()+["[SEP]"]
     x = [] # list of ids
     is_heads = [] # list. 1: the token is the first piece of a word
@@ -51,7 +52,7 @@ def process_query(query, hp, model):
 
 
 app = Flask(__name__)
-@app.route('/api/ner/bc5cdr', methods = ['POST'])
+@app.route('/api/ner/bc5cdr/', methods = ['GET', 'POST'])
 def get_bc5cdr():
     print(request.headers, request.is_json)
     query = request.values['query']
@@ -61,12 +62,12 @@ def get_bc5cdr():
 
 
 
-@app.route('/api/ner/bionlp13cg', methods = ['POST'])
+@app.route('/api/ner/bionlp13cg/', methods = ['GET', 'POST'])
 def get_bionlp13cg():
     print(request.headers, request.is_json)
     query = request.values['query']
     hp = HParams('bionlp3g')
-    out = process_query(query=, hp=hp, model=bionlp13cg_model)
+    out = process_query(query=query, hp=hp, model=bionlp13cg_model)
     return jsonify({'tags': out})
 
 
