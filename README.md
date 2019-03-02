@@ -114,4 +114,7 @@ Result =
 ["early","O"],["gastric","B-Cancer"],["cancer","I-Cancer"],
 [".","O"]]}
 
+```
+
+![](https://github.com/MeRajat/SolvingAlmostAnythingWithBert/blob/ner_medical/extras/ezgif.com-video-to-gif.gif)
 
