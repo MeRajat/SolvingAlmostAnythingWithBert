@@ -118,5 +118,5 @@ Result =
 
 
 
-<img src="https://github.com/MeRajat/SolvingAlmostAnythingWithBert/blob/ner_medical/extras/ezgif.com-video-to-gif.gif" width="900" height="600" />
+<img src="https://github.com/MeRajat/SolvingAlmostAnythingWithBert/blob/ner_medical/extras/ezgif.com-video-to-gif.gif" width="700" height="400" />
 
