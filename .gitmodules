@@ -1,3 +1,0 @@
-[submodule "pytorch-pretrained-BERT"]
-	path = pytorch-pretrained-BERT
-	url = https://github.com/huggingface/pytorch-pretrained-BERT.git
