@@ -59,12 +59,14 @@ def process_query(query, hp, model):
 
 def get_bc5cdr(query):
     hp = HParams('bc5cdr')
+    print("bc5cdr -> ", query)
     out = process_query(query=query, hp=hp, model=bc5_model)
     return JSONResponse({'tagging': out})
 
 
 def get_bionlp13cg(query):
     hp = HParams('bionlp3g')
+    print("bionlp3g -> ", query)
     out = process_query(query=query, hp=hp, model=bionlp13cg_model)
     return JSONResponse({'tags': out})
 
