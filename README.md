@@ -2,7 +2,7 @@
 
 Working Demo For NER can be found [here](http://13.72.66.146:9000/)
 
-This repository contains fine-tuning of Biobert[https://arxiv.org/abs/1901.08746] using pytorch. 
+This repository contains fine-tuning of Biobert[https://arxiv.org/abs/1901.08746].
 
 ## Preparation :- 
 To use biobert, download [weights](https://github.com/naver/biobert-pretrained/releases),  and make it compatible with pytorch using script [convert_to_pytorch_wt.ipynb](https://github.com/MeRajat/SolvingAlmostAnythingWithBert/blob/ner_medical/convert_to_pytorch_wt.ipynb). 
