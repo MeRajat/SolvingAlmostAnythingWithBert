@@ -66,9 +66,9 @@ BioNLP13CG tags :-
 
 ## Result 
 
-After fine-tuning it with biobert weights result were pretty good, F1-score for BC5CDR was 95 and for BioNLP13CG was 92. 
+After fine-tuning it with biobert weights result were pretty good, <b>F1-score</b> for BC5CDR was <b>95</b> and for BioNLP13CG was <b>92</b>. 
 
-Output :-
+Examples 
 
 BC5CDR :- 
 
