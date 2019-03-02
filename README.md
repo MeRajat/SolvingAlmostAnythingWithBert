@@ -76,7 +76,24 @@ BC5CDR :-
 Sentence = The authors describe the case of a 56 - year - old woman with chronic , severe heart failure secondary to dilated cardiomyopathy and absence of significant ventricular arrhythmias who developed QT prolongation and torsade de pointes ventricular tachycardia during one cycle of intermittent low dose ( 2 . 5 mcg / kg per min ) dobutamine . 
 
 Result =
-{"tagging":[["The","O"],["authors","O"],["describe","O"],["the","O"],["case","O"],["of","O"],["a","O"],["56","O"],["-","O"],["year","O"],["-","O"],["old","O"],["woman","O"],["with","O"],["chronic","O"],[",","O"],["severe","O"],["heart","I-Disease"],["failure","I-Disease"],["secondary","O"],["to","O"],["dilated","B-Disease"],["cardiomyopathy","I-Disease"],["and","O"],["absence","O"],["of","O"],["significant","O"],["ventricular","B-Disease"],["arrhythmias","I-Disease"],["who","O"],["developed","O"],["QT","B-Disease"],["prolongation","I-Disease"],["and","O"],["torsade","B-Disease"],["de","I-Disease"],["pointes","I-Disease"],["ventricular","I-Disease"],["tachycardia","I-Disease"],["during","O"],["one","O"],["cycle","O"],["of","O"],["intermittent","O"],["low","O"],["dose","O"],["(","O"],["2","O"],[".","O"],["5","O"],["mcg","O"],["/","O"],["kg","O"],["per","O"],["min","O"],[")","O"],["dobutamine","B-Chemical"],[".","O"]]}
+{"tagging":[["The","O"],["authors","O"],["describe","O"],
+["the","O"],["case","O"],["of","O"],["a","O"],["56","O"],["-",
+"O"],["year","O"],["-","O"],["old","O"],["woman","O"],["with",
+"O"],["chronic","O"],[",","O"],["severe","O"],["heart",
+"I-Disease"],["failure","I-Disease"],["secondary","O"],["to",
+"O"],["dilated","B-Disease"],["cardiomyopathy","I-Disease"],
+["and","O"],["absence","O"],["of","O"],["significant","O"],
+["ventricular","B-Disease"],["arrhythmias","I-Disease"],
+["who","O"],["developed","O"],["QT","B-Disease"],
+["prolongation","I-Disease"],["and","O"],["torsade",
+"B-Disease"],["de","I-Disease"],["pointes","I-Disease"],
+["ventricular","I-Disease"],["tachycardia","I-Disease"],
+["during","O"],["one","O"],["cycle","O"],["of","O"],
+["intermittent","O"],["low","O"],["dose","O"],["(","O"],["2",
+"O"],[".","O"],["5","O"],["mcg","O"],["/","O"],["kg","O"],
+["per","O"],["min","O"],[")","O"],["dobutamine","B-Chemical"],
+[".","O"]]}
+
 ```
 
 BioNLP13CG :- 
@@ -86,5 +103,15 @@ Sentence = Cooccurrence of reduced expression of alpha - catenin and overexpress
 
 
 Result = 
-{"tags":[["Cooccurrence","O"],["of","O"],["reduced","O"],["expression","O"],["of","O"],["alpha","B-Gene_or_gene_product"],["-","I-Gene_or_gene_product"],["catenin","I-Gene_or_gene_product"],["and","O"],["overexpression","O"],["of","O"],["p53","B-Gene_or_gene_product"],["is","O"],["a","O"],["predictor","O"],["of","O"],["lymph","B-Multi-tissue_structure"],["node","I-Multi-tissue_structure"],["metastasis","O"],["in","O"],["early","O"],["gastric","B-Cancer"],["cancer","I-Cancer"],[".","O"]]}
+{"tags":[["Cooccurrence","O"],["of","O"],["reduced","O"],
+["expression","O"],["of","O"],["alpha",
+"B-Gene_or_gene_product"],["-","I-Gene_or_gene_product"],
+["catenin","I-Gene_or_gene_product"],["and","O"],
+["overexpression","O"],["of","O"],["p53",
+"B-Gene_or_gene_product"],["is","O"],["a","O"],["predictor",
+"O"],["of","O"],["lymph","B-Multi-tissue_structure"],["node",
+"I-Multi-tissue_structure"],["metastasis","O"],["in","O"],
+["early","O"],["gastric","B-Cancer"],["cancer","I-Cancer"],
+[".","O"]]}
+
 
