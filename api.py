@@ -86,9 +86,21 @@ def form(_):
         <form action="/extract-ner" method="get">
             <textarea rows="10" cols="60" name="text">
             </textarea><br>
-            <input type="submit" name="bionlp3g" value="BIO NLP 3G">
+            <input type="submit" name="bionlp3g" value="BIO NLP 13CG">
             <input type="submit" name="bc5cdr" value="BC 5 CDR">
         </form>
+            <p> More information can be found here https://github.com/MeRajat/SolvingAlmostAnythingWithBert<br>
+            Examples :- <br>
+            ## BIONLP13CG :- <br>
+                1. Cooccurrence of reduced expression of alpha - catenin and overexpression of p53 is a predictor of lymph node metastasis in early gastric cancer .<br>
+                2. In this review , the role of TSH - R gene alterations in benign and malignant thyroid neoplasia is examined . <br>
+
+            ## BC5CDR :- <br>
+                1. The authors describe the case of a 56 - year - old woman with chronic , severe heart failure <br>
+                secondary to dilated cardiomyopathy and absence of significant ventricular arrhythmias <br>
+                who developed QT prolongation and torsade de pointes ventricular tachycardia during one cycle
+                <br> of intermittent low dose ( 2 . 5 mcg / kg per min ) dobutamine . <br>
+        </p>
     """)
 
 
