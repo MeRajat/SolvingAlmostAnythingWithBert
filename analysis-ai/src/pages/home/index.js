@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import GithubFork from './components/fork';
-import { Highlighter } from './components/highlighter';
-import { Header } from './components/header';
-import InputWithExamples from './components/input-with-examples';
+import GithubFork from '../../components/fork';
+import { Highlighter } from '../../components/highlighter';
+import { Header } from '../../components/header';
+import InputWithExamples from '../../components/input-with-examples';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import './App.css';
+import './index.css';
 
 class App extends Component {
   render() {
     console.log(process.env.REACT_APP_DEV_API_URL);
     return (
-      <>
+      <div className='main-wrapper' style={{ padding: '48px 12px' }}>
         <GithubFork href='https://github.com/MeRajat/SolvingAlmostAnythingWithBert' />
-        <Grid container className='main-wrapper' justify='center' alignItems='center' direction='column' spacing={24}>
+        <Grid container justify='center' alignItems='center' direction='column' spacing={24}>
           <Grid item xs={6}>
             <Header color='#827717' gutterBottom variant="h3" component="h1">
               BioBert Pytorch
@@ -24,7 +24,7 @@ class App extends Component {
               This App finds <b><Highlighter color='#455a64'>Named Entity Recognition</Highlighter></b> (NER)
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={10}>
             <Card>
               <CardContent>
                 <Header color='#9e9d24' gutterBottom variant="h5" component="h2">
@@ -38,7 +38,7 @@ class App extends Component {
           </Grid>
           <InputWithExamples />
         </Grid>
-      </>
+      </div>
     );
   }
 }

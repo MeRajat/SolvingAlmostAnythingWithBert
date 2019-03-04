@@ -18,11 +18,11 @@ const examples = [
 
 export default class ExampleSelect extends React.Component {
   static propTypes = {
-    onChange: PropTypes.func.isRequired
+    updateBioNlp: PropTypes.func.isRequired
   };
 
   state = {
-    content: '',
+    content: ''
   }
 
   constructor(props) {
@@ -32,8 +32,10 @@ export default class ExampleSelect extends React.Component {
 
 
   handleChange = event => {
-    this.setState({ content: event.target.value });
-    this.props.onChange && this.props.onChange(event);
+    this.setState({
+      content: event.target.value
+    })
+    this.props.updateBioNlp && this.props.updateBioNlp(event.target.value);
   };
 
   render () {
