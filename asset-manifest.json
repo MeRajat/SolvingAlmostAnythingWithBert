@@ -1,13 +1,13 @@
 {
-  "main.css": "/static/css/main.9c482c5a.chunk.css",
-  "main.js": "/static/js/main.cc2c38b2.chunk.js",
-  "main.js.map": "/static/js/main.cc2c38b2.chunk.js.map",
-  "runtime~main.js": "/static/js/runtime~main.fdfcfda2.js",
-  "runtime~main.js.map": "/static/js/runtime~main.fdfcfda2.js.map",
-  "static/js/2.5d712fb7.chunk.js": "/static/js/2.5d712fb7.chunk.js",
-  "static/js/2.5d712fb7.chunk.js.map": "/static/js/2.5d712fb7.chunk.js.map",
-  "index.html": "/index.html",
-  "precache-manifest.a6de4174e8e313a3d3a7782d13418932.js": "/precache-manifest.a6de4174e8e313a3d3a7782d13418932.js",
-  "service-worker.js": "/service-worker.js",
-  "static/css/main.9c482c5a.chunk.css.map": "/static/css/main.9c482c5a.chunk.css.map"
+  "main.css": "/SolvingAlmostAnythingWithBert/static/css/main.9c482c5a.chunk.css",
+  "main.js": "/SolvingAlmostAnythingWithBert/static/js/main.f84173e3.chunk.js",
+  "main.js.map": "/SolvingAlmostAnythingWithBert/static/js/main.f84173e3.chunk.js.map",
+  "runtime~main.js": "/SolvingAlmostAnythingWithBert/static/js/runtime~main.7b99cebe.js",
+  "runtime~main.js.map": "/SolvingAlmostAnythingWithBert/static/js/runtime~main.7b99cebe.js.map",
+  "static/js/2.681f62ff.chunk.js": "/SolvingAlmostAnythingWithBert/static/js/2.681f62ff.chunk.js",
+  "static/js/2.681f62ff.chunk.js.map": "/SolvingAlmostAnythingWithBert/static/js/2.681f62ff.chunk.js.map",
+  "index.html": "/SolvingAlmostAnythingWithBert/index.html",
+  "precache-manifest.6e29ba42436412d796169362a79fcde6.js": "/SolvingAlmostAnythingWithBert/precache-manifest.6e29ba42436412d796169362a79fcde6.js",
+  "service-worker.js": "/SolvingAlmostAnythingWithBert/service-worker.js",
+  "static/css/main.9c482c5a.chunk.css.map": "/SolvingAlmostAnythingWithBert/static/css/main.9c482c5a.chunk.css.map"
 }
