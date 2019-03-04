@@ -40,7 +40,7 @@ export default class ExampleSelect extends React.Component {
 
   render () {
     return (
-      <FormControl variant="outlined">
+      <FormControl variant="outlined" style={{ width: '100%' }}>
         <RootRef rootRef={this.labelRef}>
           <InputLabel
             style={{ whiteSpace: 'nowrap' }}
@@ -50,7 +50,6 @@ export default class ExampleSelect extends React.Component {
           </InputLabel>
         </RootRef>
         <Select
-          style={{ width: 300 }}
           value={this.state.content}
           onChange={this.handleChange}
           input={

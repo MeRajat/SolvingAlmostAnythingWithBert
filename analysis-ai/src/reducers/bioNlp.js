@@ -3,7 +3,7 @@ import constants from '../redux-constants/fetch';
 const initialState = {
   response: {},
   request: {
-    bionlp3g: window.encodeURIComponent('BIO NLP 13CG'),
+    bionlp3g: 'BIO NLP 13CG',
     text: ''
   },
   loading: false,
