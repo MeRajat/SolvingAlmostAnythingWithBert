@@ -9,10 +9,17 @@ export const fetchBioNlp = () => async (dispatch, getState) => {
   const payload =  params(getState().bioNlp.request);
 
   try {
-    const response = fetch(`http://13.72.66.146:9000/extract-ner?${payload}`);
-
+    const response = await fetch(`http://13.72.66.146:9000/extract-ner?${payload}`)
+      .then(response => response.json());
+    dispatch({
+      type: constants.FETCH_BIO_NLP_SUCCESS,
+      response
+    })
   } catch (error) {
-
+    dispatch({
+      type: constants.FETCH_BIO_NLP_FAILURE,
+      errorMessage: 'Request Failed'
+    })
   }
 }
 

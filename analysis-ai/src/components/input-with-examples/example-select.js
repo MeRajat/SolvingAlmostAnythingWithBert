@@ -35,6 +35,7 @@ const Subheader = styled.li`
   color: #827717;
   font-weight: 700;
   border-bottom: 1px solid #e2e2e2;
+  pointer-events: none;
 `;
 
 
