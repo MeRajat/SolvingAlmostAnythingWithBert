@@ -5,16 +5,39 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import styled from 'styled-components';
 import RootRef from '@material-ui/core/RootRef';
 
+import TooltipMenu from './tooltip-composed-menu';
+
 const examples = [
-  'AllenNLP is a PyTorch-based natural language processing library developed at the Allen Institute for Artificial Intelligence in Seattle.',
-  'Did Uriah honestly think he could beat The Legend of Zelda in under three hours?',
-  'Michael Jordan is a professor at Berkeley.',
-  "My preferred candidate is Cary Moon, but she won't be the next mayor of Seattle.",
-  'If you like Paul McCartney you should listen to the first Wings album.',
-  'If you like Paul McCartney you should listen to the first Wings album.'
-]
+  {
+    key: 'bnlp#1',
+    type: 'bioNlp',
+    text: 'Cooccurrence of reduced expression of alpha - catenin and overexpression of p53 is a predictor of lymph node metastasis in early gastric cancer.',
+  },
+  {
+    key: 'bnlp#2',
+    type: 'bioNlp',
+    text: 'In this review , the role of TSH - R gene alterations in benign and malignant thyroid neoplasia is examined.',
+  },
+  {
+    key: 'bc5cdr#1',
+    type: 'bc5cdr',
+    text: "The authors describe the case of a 56 - year - old woman with chronic , severe heart failure secondary to dilated cardiomyopathy and absence of significant ventricular arrhythmias who developed QT prolongation and torsade de pointes ventricular tachycardia during one cycle of intermittent low dose ( 2.5 mcg/kg per min ) dobutamine."
+  }
+];
+
+const Subheader = styled.li`
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.5em;
+  padding: 11px 16px;
+  color: #827717;
+  font-weight: 700;
+  border-bottom: 1px solid #e2e2e2;
+`;
+
+
 
 export default class ExampleSelect extends React.Component {
   static propTypes = {
@@ -22,7 +45,8 @@ export default class ExampleSelect extends React.Component {
   };
 
   state = {
-    content: ''
+    content: '',
+    selectedExampleKey: ''
   }
 
   constructor(props) {
@@ -32,10 +56,12 @@ export default class ExampleSelect extends React.Component {
 
 
   handleChange = event => {
+    const selectedExample = typeof event.target.value === 'string' ? {} : event.target.value;
     this.setState({
-      content: event.target.value
+      content: selectedExample.text || '',
+      selectedExampleKey: selectedExample.key || ''
     })
-    this.props.updateBioNlp && this.props.updateBioNlp(event.target.value);
+    this.props.updateBioNlp && this.props.updateBioNlp(selectedExample.text || '');
   };
 
   render () {
@@ -51,6 +77,9 @@ export default class ExampleSelect extends React.Component {
         </RootRef>
         <Select
           value={this.state.content}
+          renderValue={() => {
+            return <span>{this.state.content}</span>
+          }}
           onChange={this.handleChange}
           input={
             <OutlinedInput
@@ -60,13 +89,27 @@ export default class ExampleSelect extends React.Component {
               id="outlined-example"
             />
           }
+          MenuProps={{
+            PaperProps: {
+              style: {
+                width: 400,
+              },
+            },
+          }}
         >
-          <MenuItem value=""><em>--</em></MenuItem>
-          {
-            examples.map((example, i) => (
-              <MenuItem key={i} value={example}>{example}</MenuItem>
-            ))
-          }
+          <MenuItem selected={!this.state.selectedExampleKey} value=""><em>--</em></MenuItem>
+          <Subheader className='subheader'>Bio NLP</Subheader>
+            {
+              examples.slice(0, 2).map(example => {
+                return <TooltipMenu key={example.key} selectedKey={this.state.selectedExampleKey} value={example} />
+              })
+            }
+          <Subheader className='subheader'>BC5 CDR</Subheader>
+            {
+              examples.slice(2).map(example => {
+                return <TooltipMenu key={example.key} selectedKey={this.state.selectedExampleKey} value={example} />
+              })
+            }
         </Select>
       </FormControl>
     );

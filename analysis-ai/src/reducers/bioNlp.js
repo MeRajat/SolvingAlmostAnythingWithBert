@@ -28,7 +28,6 @@ export default (state = initialState, action) => {
     case constants.UPDATE_BIO_NLP:
       immutatedState.request = {...state.request};
       immutatedState.request.text = action.content;
-      console.log(immutatedState);
       return immutatedState;
     default:
       return state;

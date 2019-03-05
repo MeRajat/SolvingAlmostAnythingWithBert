@@ -9,8 +9,8 @@ export const fetchBioNlp = () => async (dispatch, getState) => {
   const payload =  params(getState().bioNlp.request);
 
   try {
-    const response = fetch(`${process.env.REACT_APP_DEV_API_URL}/extract-ner?${payload}`);
-    console.log(response);
+    const response = fetch(`http://13.72.66.146:9000/extract-ner?${payload}`);
+
   } catch (error) {
 
   }
