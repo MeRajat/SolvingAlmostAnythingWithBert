@@ -1,11 +1,11 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { fetchBc5cdr } from '../../actions/bcdr';
+import { fetchBioNlp } from '../../actions/bioNlp';
 import Submit from '../../components/input-with-examples/submit';
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    fetchData: fetchBc5cdr
+    fetchData: fetchBioNlp
   }, dispatch);
 }
 

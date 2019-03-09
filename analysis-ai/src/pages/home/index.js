@@ -3,7 +3,7 @@ import GithubFork from '../../components/fork';
 import { Highlighter } from '../../components/highlighter';
 import { Header } from '../../components/header';
 import InputWithExamples from '../../containers/input-with-examples';
-import NlpTextArea from '../../containers/nlp-text-area'
+import ResponseTextAreaContainer from '../../containers/response-text-area/container';
 import RequestRadio from '../../containers/request-type-radio'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -69,7 +69,7 @@ class App extends Component {
             </Grid>
             <InputWithExamples />
             <Grid item xs={10} style={{ width: '100%' }} >
-              <NlpTextArea />
+              <ResponseTextAreaContainer />
             </Grid>
           </Grid>
         </div>
