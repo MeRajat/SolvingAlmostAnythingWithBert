@@ -41,22 +41,22 @@ class App extends Component {
         <div className='main-wrapper' style={{ padding: '48px 12px' }}>
           <GithubFork href='https://github.com/MeRajat/SolvingAlmostAnythingWithBert' />
           <Grid container justify='center' alignItems='center' direction='column' spacing={24}>
-            <Grid item xs={6}>
+            <Grid item xs={6} className='text-center'>
               <Header color='#827717' gutterBottom variant="h3" component="h1">
-                BioBert Pytorch
+                Solving BioNLP problems
               </Header>
               <Typography gutterBottom component="p">
-                This App finds <b><Highlighter color='#455a64'>Named Entity Recognition</Highlighter></b> (NER)
+                This App solves <b><Highlighter color='#455a64'>BioNLP</Highlighter></b> problems using <b><Highlighter color='#455a64'>Bert(BioBert Pytorch)</Highlighter></b>
               </Typography>
             </Grid>
             <Grid item xs={10}>
               <Card>
                 <CardContent>
                   <Header color='#9e9d24' gutterBottom variant="h5" component="h2">
-                    Named Entity Recognition
+                    Description
                   </Header>
                   <Typography component="p">
-                    The named entity recognition model identifies named entities (people, locations, organizations, and miscellaneous) in the input text. This model is the "baseline" model described in Peters, Ammar, Bhagavatula, and Power 2017 . It uses a Gated Recurrent Unit (GRU) character encoder as well as a GRU phrase encoder, and it starts with pretrained GloVe vectors for its token embeddings. It was trained on the CoNLL-2003 NER dataset. It is not state of the art on that task, but it's not terrible either. (This is also the model constructed in our Creating a Model tutorial.)
+                    This app demonstrates how Bert(BioBert) can be finetuned and used to beat any state of the art result. In this we have trained it discover entites in medical text. In <b><Highlighter color='#455a64'>BioNLP13CG</Highlighter></b> it finds entites like <b><Highlighter color='#455a64'>'Anatomical_system'</Highlighter></b>, <b><Highlighter color='#455a64'>'Cancer'</Highlighter></b>, <b><Highlighter color='#455a64'>'Cell'</Highlighter></b>,  <b><Highlighter color='#455a64'>'Cellular_component'</Highlighter></b>, <b><Highlighter color='#455a64'>'Developing_anatomical_structure'</Highlighter></b>, <b><Highlighter color='#455a64'>'Gene_or_gene_product'</Highlighter></b>, <b><Highlighter color='#455a64'>'Immaterial_anatomical_entity'</Highlighter></b>, <b><Highlighter color='#455a64'>'Multi-tissue_structure'</Highlighter></b>, <b><Highlighter color='#455a64'>'Organ'</Highlighter></b>, <b><Highlighter color='#455a64'>'Organism'</Highlighter></b>, <b><Highlighter color='#455a64'>'Organism_subdivision'</Highlighter></b>, <b><Highlighter color='#455a64'>'Organism_substance'</Highlighter></b>, <b><Highlighter color='#455a64'>'Pathological_formation'</Highlighter></b>, <b><Highlighter color='#455a64'>'Simple_chemical'</Highlighter></b>, <b><Highlighter color='#455a64'>'Tissue'</Highlighter></b>  and in <b><Highlighter color='#455a64'>BC5CDR</Highlighter></b> it finds <b><Highlighter color='#455a64'>Disease and Chemicals</Highlighter></b>.
                   </Typography>
                 </CardContent>
               </Card>
