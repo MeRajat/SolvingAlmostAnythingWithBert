@@ -9,11 +9,12 @@ const StyledText = styled.span`
   margin-bottom: 5px;
   border-radius: 5px;
   box-sizing: border-box;
-  background: ${props => props.color ? props.color : props.theme.palette.primary.main};
+  background: ${props => props.bgColor ? props.bgColor : props.theme.palette.primary.main};
 
   > span.text {
     padding: 4px 10px;
-    background: ${props => props.colorLight ? props.colorLight : '#ddd'};;
+    background: #fff;
+    color: #424242;
     box-sizing: border-box;
     border-radius: 5px;
     line-height: 1.4;
@@ -22,8 +23,8 @@ const StyledText = styled.span`
 
   > span.type {
     font-size: 12px;
-    background: ${props => props.color ? props.color : props.theme.palette.primary.main};
-    color: #f2f2f2;
+    background: ${props => props.bgColor ? props.bgColor : props.theme.palette.primary.main};
+    color: ${props => props.color ? props.color : props.theme.palette.primary.main};
     line-height: 1;
     padding-top: 5px;
     border-radius: 0 0 5px 5px;

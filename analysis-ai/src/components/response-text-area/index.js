@@ -4,6 +4,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import StyledText from './styled-text';
 
+import mapCodeToColors from '../../utils/mapCodeToColors';
+
 const Wrapper = styled.div`
   background: #fafafa;
   padding: 24px;
@@ -26,7 +28,10 @@ const renderWrapper = (tags) => {
         return <Fragment key={i}>
           {space}
           <Tooltip title={tag[1]}>
-            <StyledText>
+            <StyledText
+              bgColor={mapCodeToColors[tag[1]].bg}
+              color={mapCodeToColors[tag[1]].fg}
+            >
               <span className='text'>
                 {tag[0]}
               </span>

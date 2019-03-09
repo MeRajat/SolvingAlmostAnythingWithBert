@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import NlpTextArea from '../components/nlp-text-area';
+import ResponseTextArea from '../../components/response-text-area';
 
 const mapStateToProps = state => {
   return {
@@ -8,4 +8,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(NlpTextArea);
+export default connect(mapStateToProps, null)(ResponseTextArea);

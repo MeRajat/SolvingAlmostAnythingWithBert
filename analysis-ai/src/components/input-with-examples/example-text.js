@@ -5,11 +5,11 @@ import TextField from '@material-ui/core/TextField';
 export default class ExampleText extends React.Component {
   static propTypes = {
     content: PropTypes.string,
-    updateBioNlp: PropTypes.func.isRequired
+    update: PropTypes.func.isRequired
   }
 
   handleChange = event => {
-    this.props.updateBioNlp(event.target.value);
+    this.props.update(event.target.value);
   }
 
   render () {
