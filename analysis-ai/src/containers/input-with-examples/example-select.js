@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { updateBioNlp } from '../actions/bioNlp';
-import ExampleSelect from '../components/input-with-examples/example-select';
+import { updateBioNlp } from '../../actions/bioNlp';
+import ExampleSelect from '../../components/input-with-examples/example-select';
 
 const mapStateToProps = state => {
   return {
@@ -11,7 +11,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    updateBioNlp
+    update: updateBioNlp
   }, dispatch);
 }
 

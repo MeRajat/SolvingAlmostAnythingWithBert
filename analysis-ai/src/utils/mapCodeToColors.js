@@ -4,11 +4,11 @@ export default {
     fg: '#f2f2f2',
   },
   'I-Chemical': {
-    bg: '#ab47bc',
+    bg: '#8e24aa',
     fg: '#f2f2f2',
   },
   'B-Disease': {
-    bg: '#424242',
+    bg: '#37474f',
     fg: '#f2f2f2',
   },
   'I-Disease': {

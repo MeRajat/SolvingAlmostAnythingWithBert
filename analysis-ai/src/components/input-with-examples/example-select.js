@@ -42,7 +42,7 @@ const Subheader = styled.li`
 
 export default class ExampleSelect extends React.Component {
   static propTypes = {
-    updateBioNlp: PropTypes.func.isRequired
+    update: PropTypes.func.isRequired
   };
 
   state = {
@@ -62,7 +62,7 @@ export default class ExampleSelect extends React.Component {
       content: selectedExample.text || '',
       selectedExampleKey: selectedExample.key || ''
     })
-    this.props.updateBioNlp && this.props.updateBioNlp(selectedExample.text || '');
+    this.props.update(selectedExample.text || '');
   };
 
   render () {

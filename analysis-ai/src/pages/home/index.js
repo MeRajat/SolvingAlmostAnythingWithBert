@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import GithubFork from '../../components/fork';
 import { Highlighter } from '../../components/highlighter';
 import { Header } from '../../components/header';
-import InputWithExamples from '../../components/input-with-examples';
+import InputWithExamples from '../../containers/input-with-examples';
 import NlpTextArea from '../../containers/nlp-text-area'
+import RequestRadio from '../../containers/request-type-radio'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+
 import './index.css';
 
 const theme = createMuiTheme({
@@ -61,6 +63,9 @@ class App extends Component {
             </Grid>
             <Grid item style={{ marginTop: '24px', width: '100%', textAlign: 'start' }} xs={10}>
               <Header color='#9e9d24' gutterBottom variant="h5" component="h2"> DEMO </Header>
+            </Grid>
+            <Grid item style={{ width: '100%', textAlign: 'start' }} xs={10}>
+              <RequestRadio />
             </Grid>
             <InputWithExamples />
             <Grid item xs={10} style={{ width: '100%' }} >
