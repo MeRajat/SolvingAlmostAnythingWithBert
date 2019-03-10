@@ -1,6 +1,6 @@
 # Solving BioNLP problems using Bert(BioBert Pytorch)
 
-Working Demo For NER can be found [here](http://13.72.66.146:9000/)
+Working Demo For NER can be found [here](http://13.72.66.146:5000/)
 
 This repository contains fine-tuning of Biobert[https://arxiv.org/abs/1901.08746].
 
