@@ -9,7 +9,7 @@ import logging
 import collections
 import json
 from tqdm import tqdm 
-
+from pytorch_pretrained_bert import tokenization
 
 
 _DocSpan = collections.namedtuple("DocSpan", ["start", "length"])
@@ -55,7 +55,7 @@ class QADataset(data.Dataset):
         for entry in data:
             for para in tqdm(entry["paragraphs"]):
                         text = para["context"]
-        char_to_word_offset, doc_tokens = text_preprocessing(text)
+        char_to_word_offset, doc_tokens = utils.text_preprocessing(text)
         for qa in para['qas']:
             question_text = qa["question"]
             answer = qa['answers'][0]
@@ -127,7 +127,7 @@ class QADataset(data.Dataset):
                 for i in range(doc_span.length):
                     split_token_index = doc_span.start + i 
                     token_to_orig_map[len(tokens)] = tok_to_orig_index[split_token_index]
-                    is_max_context = _check_is_max_context(doc_spans, index, split_token_index)
+                    is_max_context = utils.check_is_max_context(doc_spans, index, split_token_index)
                     token_is_max_context[len(tokens)] = is_max_context
                     tokens.append(all_doc_tokens[split_token_index])
                     segment_ids.append(1)
