@@ -121,7 +121,7 @@ class QADataset(data.Dataset):
                 tokens = []
                 token_to_orig_map = {}
                 token_is_max_context = {}
-                tokens = ["CLS"] + query_tokens + ["SEP"]
+                tokens = ["[CLS]"] + query_tokens + ["[SEP]"]
                 segment_ids = [0] * len(tokens)
                 
                 for i in range(doc_span.length):
