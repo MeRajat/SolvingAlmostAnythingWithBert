@@ -7,6 +7,8 @@ from pytorch_pretrained_bert import BertTokenizer
 import utils
 import logging
 import collections
+import json
+
 
 
 _DocSpan = collections.namedtuple("DocSpan", ["start", "length"])
