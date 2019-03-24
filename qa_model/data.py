@@ -10,7 +10,7 @@ import collections
 import json
 from tqdm import tqdm 
 from pytorch_pretrained_bert import tokenization
-
+import numpy as np 
 
 _DocSpan = collections.namedtuple("DocSpan", ["start", "length"])
 
@@ -18,7 +18,6 @@ class InputFeatures(object):
   """A single set of features of data."""
 
   def __init__(self,
-               unique_id,
                example_index,
                doc_span_index,
                tokens,
@@ -29,7 +28,6 @@ class InputFeatures(object):
                segment_ids,
                start_position=None,
                end_position=None):
-    self.unique_id = unique_id
     self.example_index = example_index
     self.doc_span_index = doc_span_index
     self.tokens = tokens
@@ -49,132 +47,133 @@ class QADataset(data.Dataset):
         with open('BioASQ-train-4b.json', 'r', encoding='utf-8') as f:
             input_data = json.load(f)
         self.features = []
-
+        example_index = 0
 
         data = input_data['data']   
         for entry in data:
             for para in tqdm(entry["paragraphs"]):
-                        text = para["context"]
-        char_to_word_offset, doc_tokens = utils.text_preprocessing(text)
-        for qa in para['qas']:
-            question_text = qa["question"]
-            answer = qa['answers'][0]
-            orig_answer_text = answer["text"]
-            answer_offset = answer["answer_start"]
-            answer_length = len(orig_answer_text)
-            start_position = char_to_word_offset[answer_offset]
-            end_position = char_to_word_offset[answer_offset + answer_length - 1]
+                text = para["context"]
+                char_to_word_offset, doc_tokens = utils.text_preprocessing(text)
+                for qa in para['qas']:
+                    question_text = qa["question"]
+                    answer = qa['answers'][0]
+                    orig_answer_text = answer["text"]
+                    if orig_answer_text == '':
+                        continue
+                    answer_offset = answer["answer_start"]
+                    answer_length = len(orig_answer_text)
+                    start_position = char_to_word_offset[answer_offset]
+                    end_position = char_to_word_offset[answer_offset + answer_length - 1]
 
 
-            # Check if answer can be retrieved successfully or now 
-            actual_text = " ".join(
-                doc_tokens[start_position:(end_position + 1)])
-            cleaned_answer_text = " ".join(
-                tokenization.whitespace_tokenize(orig_answer_text))
+                    # Check if answer can be retrieved successfully or now 
+                    actual_text = " ".join(
+                        doc_tokens[start_position:(end_position + 1)])
+                    cleaned_answer_text = " ".join(
+                        tokenization.whitespace_tokenize(orig_answer_text))
 
-            if actual_text.find(cleaned_answer_text) == -1:
-                logging.warning(f'could not find answer {cleaned_answer_text} in {actual_text}')
-            
-            # Process question text 
-            query_tokens = tokenizer.tokenize(question_text)
-            # Limit query tokens length 
-            query_tokens = query_tokens[:parameters.MAX_QUERY_LENGTH] 
-
-            # Now query is tokenized, we need to preserve mapping to original (20) -> ( 20 )
-            # It uses sentence piece tokenizer 
-            tok_to_orig_index = []
-            orig_to_tok_index = []
-            all_doc_tokens = []
-            for (i, token) in enumerate(doc_tokens):
-                orig_to_tok_index.append(len(all_doc_tokens))
-                sub_tokens = tokenizer.tokenize(token)
-                for sub_token in sub_tokens:
-                    tok_to_orig_index.append(i)
-                    all_doc_tokens.append(sub_token)
-
-
-            tok_start_position = None 
-            tok_end_position = None 
-            tok_start_position = orig_to_tok_index[start_position]
-            tok_end_position = orig_to_tok_index[end_position +1] - 1
-
-            input_start, input_end = utils.improve_answer_span(
-                    all_doc_tokens, tok_start_position, tok_end_position, tokenizer,
-                    orig_answer_text)
-
-
-            # The -3 accounts for [CLS], [SEP] and [SEP]
-            max_tokens_for_doc = parameters.MAX_SEQ_LENGTH - len(query_tokens) - 3
-
-            doc_spans = []
-            start_offset = 0
-            while start_offset < len(all_doc_tokens):
-                length = len(all_doc_tokens) - start_offset
-                if length > max_tokens_for_doc:
-                    length = max_tokens_for_doc
-                doc_spans.append(_DocSpan(start=start_offset, length=length))
-                if start_offset + length == len(all_doc_tokens):
-                    break
-                start_offset += min(length, parameters.DOC_STRIDE)
-
-            for index, doc_span in enumerate(doc_spans):
-                tokens = []
-                token_to_orig_map = {}
-                token_is_max_context = {}
-                tokens = ["[CLS]"] + query_tokens + ["[SEP]"]
-                segment_ids = [0] * len(tokens)
-                
-                for i in range(doc_span.length):
-                    split_token_index = doc_span.start + i 
-                    token_to_orig_map[len(tokens)] = tok_to_orig_index[split_token_index]
-                    is_max_context = utils.check_is_max_context(doc_spans, index, split_token_index)
-                    token_is_max_context[len(tokens)] = is_max_context
-                    tokens.append(all_doc_tokens[split_token_index])
-                    segment_ids.append(1)
-                tokens.append("[SEP]")
-                segment_ids.append(1)
-                
-                
-                input_ids = tokenizer.convert_tokens_to_ids(tokens)
-                
-                # Mask if real token then 1 and padding 0 
-                input_mask = [1] * len(input_ids)
-                
-                
-                
-                # Zero par up to the sequence length 
-                start_position = None 
-                end_position = None 
-                
-                # remove the spans for which we have nothing to predict 
-                doc_start = doc_span.start
-                doc_end = doc_span.start + doc_span.length - 1 
-                out_of_span = False 
-                if not (tok_start_position >= doc_start) and (tok_end_position <= doc_end):
-                    out_of_span = True 
+                    if actual_text.find(cleaned_answer_text) == -1:
+                        logging.warning(f'could not find answer {cleaned_answer_text} in {actual_text}')
                     
-                if out_of_span:
-                    start_position = 0
-                    end_position = 0
-                else:
-                    doc_offset = len(query_tokens) + 2 
-                    start_position = tok_start_position - doc_start + doc_offset
-                    end_position = tok_end_position - doc_start + doc_offset   
-            
+                    # Process question text 
+                    query_tokens = tokenizer.tokenize(question_text)
+                    # Limit query tokens length 
+                    query_tokens = query_tokens[:parameters.MAX_QUERY_LENGTH] 
 
-                features.append(InputFeatures(
-                    unique_id=unique_id,
-                    example_index=example_index,
-                    doc_span_index=doc_span_index,
-                    tokens=tokens,
-                    token_to_orig_map=token_to_orig_map,
-                    token_is_max_context=token_is_max_context,
-                    input_ids=input_ids,
-                    input_mask=input_mask,
-                    segment_ids=segment_ids,
-                    start_position=start_position,
-                    end_position=end_position))
+                    # Now query is tokenized, we need to preserve mapping to original (20) -> ( 20 )
+                    # It uses sentence piece tokenizer 
+                    tok_to_orig_index = []
+                    orig_to_tok_index = []
+                    all_doc_tokens = []
+                    for (i, token) in enumerate(doc_tokens):
+                        orig_to_tok_index.append(len(all_doc_tokens))
+                        sub_tokens = tokenizer.tokenize(token)
+                        for sub_token in sub_tokens:
+                            tok_to_orig_index.append(i)
+                            all_doc_tokens.append(sub_token)
 
+
+                    tok_start_position = None 
+                    tok_end_position = None 
+                    tok_start_position = orig_to_tok_index[start_position]
+                    tok_end_position = orig_to_tok_index[end_position +1] - 1
+
+                    input_start, input_end = utils.improve_answer_span(
+                            all_doc_tokens, tok_start_position, tok_end_position, tokenizer,
+                            orig_answer_text)
+
+
+                    # The -3 accounts for [CLS], [SEP] and [SEP]
+                    max_tokens_for_doc = parameters.MAX_SEQ_LENGTH - len(query_tokens) - 3
+
+                    doc_spans = []
+                    start_offset = 0
+                    while start_offset < len(all_doc_tokens):
+                        length = len(all_doc_tokens) - start_offset
+                        if length > max_tokens_for_doc:
+                            length = max_tokens_for_doc
+                        doc_spans.append(_DocSpan(start=start_offset, length=length))
+                        if start_offset + length == len(all_doc_tokens):
+                            break
+                        start_offset += min(length, parameters.DOC_STRIDE)
+
+                    for index, doc_span in enumerate(doc_spans):
+                        tokens = []
+                        token_to_orig_map = {}
+                        token_is_max_context = {}
+                        tokens = ["[CLS]"] + query_tokens + ["[SEP]"]
+                        segment_ids = [0] * len(tokens)
+                        
+                        for i in range(doc_span.length):
+                            split_token_index = doc_span.start + i 
+                            token_to_orig_map[len(tokens)] = tok_to_orig_index[split_token_index]
+                            is_max_context = utils.check_is_max_context(doc_spans, index, split_token_index)
+                            token_is_max_context[len(tokens)] = is_max_context
+                            tokens.append(all_doc_tokens[split_token_index])
+                            segment_ids.append(1)
+                        tokens.append("[SEP]")
+                        segment_ids.append(1)
+                        
+                        
+                        input_ids = tokenizer.convert_tokens_to_ids(tokens)
+                        
+                        # Mask if real token then 1 and padding 0 
+                        input_mask = [1] * len(input_ids)
+                        
+                        
+                        
+                        # Zero par up to the sequence length 
+                        start_position = None 
+                        end_position = None 
+                        
+                        # remove the spans for which we have nothing to predict 
+                        doc_start = doc_span.start
+                        doc_end = doc_span.start + doc_span.length - 1 
+                        out_of_span = False 
+                        if not (tok_start_position >= doc_start) and (tok_end_position <= doc_end):
+                            out_of_span = True 
+                            
+                        if out_of_span:
+                            start_position = 0
+                            end_position = 0
+                        else:
+                            doc_offset = len(query_tokens) + 2 
+                            start_position = tok_start_position - doc_start + doc_offset
+                            end_position = tok_end_position - doc_start + doc_offset   
+                    
+
+                        self.features.append(InputFeatures(
+                            example_index=example_index,
+                            doc_span_index=index,
+                            tokens=tokens,
+                            token_to_orig_map=token_to_orig_map,
+                            token_is_max_context=token_is_max_context,
+                            input_ids=input_ids,
+                            input_mask=input_mask,
+                            segment_ids=segment_ids,
+                            start_position=start_position,
+                            end_position=end_position))
+                        example_index += 1 
 
     def __len__(self):
         return len(self.features)
@@ -187,10 +186,36 @@ class QADataset(data.Dataset):
         segment_ids = feature.segment_ids
         start_position = feature.start_position
         end_position = feature.end_position
-
+        tokens = feature.tokens
         assert len(input_ids) == len(input_mask), f'input_ids is not equal to input_mask'
         assert len(input_ids) == len(segment_ids), f'input_ids is not equal to segment_ids'
 
-        return input_ids, input_mask, segment_ids, start_position, end_position
+        return input_ids, input_mask, segment_ids, start_position, end_position, tokens
 
     
+def pad(batch):
+    f = lambda x: [sample[x] for sample in batch]
+
+    batch_input_ids = f(0)
+    batch_input_mask = f(1)
+    batch_segment_ids = f(2)
+
+    batch_starting_pt = f(3)
+    batch_end_pt = f(4) 
+
+    tokens = f(5)
+
+    maxlen = np.array([len(i) for i in batch_input_ids]).max()
+
+    if maxlen > 512:
+        maxlen = 512
+
+    f = lambda x, seqlen: [sample[x] + [0] * (seqlen - len(sample[x])) for sample in batch]
+    batch_input_ids = f(0, maxlen)
+    batch_input_mask = f(1, maxlen)
+    batch_segment_ids = f(2, maxlen)
+
+    f = torch.LongTensor
+
+    return f(batch_input_ids), f(batch_input_mask), f(batch_segment_ids), f(batch_starting_pt), f(batch_end_pt), tokens
+
