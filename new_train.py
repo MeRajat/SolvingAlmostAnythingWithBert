@@ -3,15 +3,16 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils import data
 from new_model import Net
-from data_load import NerDataset, pad, HParams, device
+from data_load import NerDataset, pad, HParams
 import os
 import numpy as np
 from pytorch_pretrained_bert.modeling import BertConfig
 import parameters
+from collections import OrderedDict
 
 
 # prepare biobert dict 
-tmp_d = torch.load(parameters.BERT_CONFIG_FILE, map_location='cpu')
+tmp_d = torch.load(parameters.BERT_WEIGHTS, map_location='cpu')
 state_dict = OrderedDict()
 for i in list(tmp_d.keys())[:199]:
     x = i
@@ -131,7 +132,8 @@ if __name__=="__main__":
     # Define model 
     config = BertConfig(vocab_size_or_config_json_file=parameters.BERT_CONFIG_FILE)
     model = Net(config = config, bert_state_dict = state_dict, vocab_len = len(hp.VOCAB), device=hp.device)
-    model.cuda()
+    if torch.cuda.is_available():
+        model.cuda()
     model.train()
     # update with already pretrained weight
 
