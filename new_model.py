@@ -7,7 +7,7 @@ class Net(nn.Module):
         super().__init__()
         self.bert = BertModel(config)
         if bert_state_dict is not None:
-            self.bert.load_state_dict(state_dict)
+            self.bert.load_state_dict(bert_state_dict)
         self.bert.eval()
         self.rnn = nn.LSTM(bidirectional=True, num_layers=2, input_size=768, hidden_size=768//2, batch_first=True)
         self.fc = nn.Linear(768, vocab_len)
