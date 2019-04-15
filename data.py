@@ -6,7 +6,7 @@ import numpy as np
 from tqdm import tqdm 
 import torch 
 import json 
-
+import parameters
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 
 class CommonSenseQA(Dataset):
@@ -46,22 +46,22 @@ class CommonSenseQA(Dataset):
         answers_tokens = map(tokenizer.tokenize, answers_choices)
         for i, answer_token in enumerate(answers_tokens):
             truncated_question_tokens = question_tokens[
-                :max((max_seq_len - 3)//2, max_seq_len - (len(answer_token) + 3))
+                :max((parameters.MAX_SEQ_LEN - 3)//2, parameters.MAX_SEQ_LEN - (len(answer_token) + 3))
             ]
             truncated_answer_tokens = answer_token[
-                :max((max_seq_len - 3)//2, max_seq_len - (len(question_tokens) + 3))
+                :max((parameters.MAX_SEQ_LEN - 3)//2, parameters.MAX_SEQ_LEN - (len(question_tokens) + 3))
             ]
             token_ids = ["[CLS]"] + truncated_question_tokens + ["[SEP]"] + truncated_answer_tokens + ["[SEP]"]
             token_segment_ids = [0] + [0] * len(truncated_question_tokens) + [0] + [1] * len(truncated_answer_tokens) + [1]
-            input_single_ids = np.zeros(max_seq_len)
-            segment_single_ids = np.zeros(max_seq_len)
+            input_single_ids = np.zeros(parameters.MAX_SEQ_LEN)
+            segment_single_ids = np.zeros(parameters.MAX_SEQ_LEN)
             
             ip_tokens = tokenizer.convert_tokens_to_ids(token_ids)
             input_single_ids[:len(ip_tokens)] = ip_tokens
             input_ids.append(input_single_ids)
             segment_single_ids[:len(token_segment_ids)] = token_segment_ids
             segment_ids.append(segment_single_ids)
-            mask = np.zeros(max_seq_len)
+            mask = np.zeros(parameters.MAX_SEQ_LEN)
             mask[:len(token_ids)] = 1
             input_mask.append(mask)
         
