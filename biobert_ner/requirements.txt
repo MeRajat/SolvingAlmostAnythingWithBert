@@ -25,7 +25,7 @@ starlette==0.11.3
 torch==1.0.1.post2
 tqdm==4.31.1
 typing-extensions==3.7.2
-urllib3==1.24.1
+urllib3==1.26.5
 uvicorn==0.4.6
 uvloop==0.12.1
 websockets==7.0
